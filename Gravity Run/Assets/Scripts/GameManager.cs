@@ -21,12 +21,15 @@ public class GameManager : MonoBehaviour
     private static GameManager m_instance;
 
     public CameraController cam;
+    public LaserSpawnManager laserSpawner;
+    public OctaCylinderController octaCyl;
+    public RunnerController runner;
 
     public TextMeshProUGUI textScore; 
 
-    private float elapsedTime = 0F;
-
-    private int currentGravityDir = 0;
+    private float totalTimer = 0.0f;
+    private float spawnTimer = 0.0f;
+    private float spawnTime = 5.0f;
 
     public bool isGamePaused { get; private set; }
     public bool isGameOver { get; private set; }
@@ -48,7 +51,33 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        totalTimer += Time.deltaTime;
+        spawnTimer += Time.deltaTime;
+        if (spawnTimer >= spawnTime) {
+            spawnTimer -= spawnTime;
+            laserSpawner.Spawn();
+
+            // update spawnTime
+            if (spawnTime > 1.0f)
+                spawnTime -= 0.1f;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Keypad1))
+            octaCyl.RotateOcta(1);
+        else if (Input.GetKeyDown(KeyCode.Keypad4))
+            octaCyl.RotateOcta(2);
+        else if (Input.GetKeyDown(KeyCode.Keypad7))
+            octaCyl.RotateOcta(3);
+        else if (Input.GetKeyDown(KeyCode.Keypad8))
+            octaCyl.RotateOcta(4);
+        else if (Input.GetKeyDown(KeyCode.Keypad9))
+            octaCyl.RotateOcta(-3);
+        else if (Input.GetKeyDown(KeyCode.Keypad6))
+            octaCyl.RotateOcta(-2);
+        else if (Input.GetKeyDown(KeyCode.Keypad3))
+            octaCyl.RotateOcta(-1);
+        else if (Input.GetKeyDown(KeyCode.Keypad5))
+            runner.Jump();
     }
 
     public void ChangeDirection(int dir) {
