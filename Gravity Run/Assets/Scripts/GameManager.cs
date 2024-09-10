@@ -22,7 +22,6 @@ public class GameManager : MonoBehaviour
 
     public CameraController cam;
     public LaserSpawnManager laserSpawner;
-    public OctaCylinderController octaCyl;
     public RunnerController runner;
 
     public TextMeshProUGUI textScore; 
@@ -62,26 +61,24 @@ public class GameManager : MonoBehaviour
                 spawnTime -= 0.1f;
         }
 
-        if (Input.GetKeyDown(KeyCode.Keypad1))
-            octaCyl.RotateOcta(1);
-        else if (Input.GetKeyDown(KeyCode.Keypad4))
-            octaCyl.RotateOcta(2);
-        else if (Input.GetKeyDown(KeyCode.Keypad7))
-            octaCyl.RotateOcta(3);
-        else if (Input.GetKeyDown(KeyCode.Keypad8))
-            octaCyl.RotateOcta(4);
-        else if (Input.GetKeyDown(KeyCode.Keypad9))
-            octaCyl.RotateOcta(-3);
-        else if (Input.GetKeyDown(KeyCode.Keypad6))
-            octaCyl.RotateOcta(-2);
-        else if (Input.GetKeyDown(KeyCode.Keypad3))
-            octaCyl.RotateOcta(-1);
-        else if (Input.GetKeyDown(KeyCode.Keypad5))
+        if (Input.GetKeyDown(KeyCode.Keypad1)) {
+            runner.ChangeGravity(1);
+        } else if (Input.GetKeyDown(KeyCode.Keypad4)) {
+            runner.ChangeGravity(4);
+        } else if (Input.GetKeyDown(KeyCode.Keypad7)) {
+            runner.ChangeGravity(7);
+        } else if (Input.GetKeyDown(KeyCode.Keypad8)) {
+            runner.ChangeGravity(8);
+        } else if (Input.GetKeyDown(KeyCode.Keypad9)) {
+            runner.ChangeGravity(9);
+        } else if (Input.GetKeyDown(KeyCode.Keypad6)) {
+            runner.ChangeGravity(6);
+        } else if (Input.GetKeyDown(KeyCode.Keypad3)) {
+            runner.ChangeGravity(3);
+        } else if (Input.GetKeyDown(KeyCode.Keypad2)) {
+            runner.ChangeGravity(2);
+        } else if (Input.GetKeyDown(KeyCode.Keypad5))
             runner.Jump();
-    }
-
-    public void ChangeDirection(int dir) {
-        cam.ChangeDirection(dir);
     }
 
     public void GameStart() {
