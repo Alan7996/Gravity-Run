@@ -24,7 +24,10 @@ public class GameManager : MonoBehaviour
     public LaserSpawnManager laserSpawner;
     public RunnerController runner;
 
-    public TextMeshProUGUI textScore; 
+    public TextMeshProUGUI textScore;
+    public TextMeshProUGUI textGameOverScore;
+    public GameObject newHighscore;
+    public GameObject gameOverCanvas;
 
     private float totalTimer = 0.0f;
     private float spawnTimer = 0.0f;
@@ -44,12 +47,18 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        if (SceneManager.GetActiveScene().buildIndex == 0) {
+            isGameOver = true;
+        }
+        if (gameOverCanvas)
+            gameOverCanvas.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (isGameOver) return;
+        
         totalTimer += Time.deltaTime;
         spawnTimer += Time.deltaTime;
         if (spawnTimer >= spawnTime) {
@@ -60,6 +69,9 @@ public class GameManager : MonoBehaviour
             if (spawnTime > 1.0f)
                 spawnTime -= 0.1f;
         }
+
+        if (textScore)
+            textScore.text = totalTimer.ToString("0.0");
 
         if (Input.GetKeyDown(KeyCode.Keypad1)) {
             runner.ChangeGravity(1);
@@ -79,6 +91,21 @@ public class GameManager : MonoBehaviour
             runner.ChangeGravity(2);
         } else if (Input.GetKeyDown(KeyCode.Keypad5))
             runner.Jump();
+    }
+
+    public void Die() {
+        isGameOver = true;
+        textScore.text = "";
+        textGameOverScore.text = totalTimer.ToString("0.0");
+
+        float highscore = PlayerPrefs.GetFloat("Highscore");
+        if (highscore < totalTimer) {
+            PlayerPrefs.SetFloat("Highscore", totalTimer);
+            newHighscore.SetActive(true);
+        } else {
+            newHighscore.SetActive(false);
+        }
+        gameOverCanvas.SetActive(true);
     }
 
     public void GameStart() {

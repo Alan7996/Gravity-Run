@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class OctaCylinderScroller : MonoBehaviour
 {
+    public List<GameObject> childLasers;
+
     // Start is called before the first frame update
     void Start()
     {

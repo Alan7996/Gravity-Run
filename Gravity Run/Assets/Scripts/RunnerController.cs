@@ -6,7 +6,7 @@ public class RunnerController : MonoBehaviour
 {
     private Rigidbody m_Rigidbody;
 
-    public float jumpForce = 40.0f;
+    public float jumpForce = 60.0f;
 
     private float xCurrRot;
     private float xRotTarget = 0.0f;
@@ -56,8 +56,9 @@ public class RunnerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float angle = Mathf.SmoothDampAngle(transform.eulerAngles.x, xRotTarget, ref xCurrRot, 0.5f);
-        transform.rotation = Quaternion.Euler(angle, 0, 0);
+        // don't need for now since we are using a sphere
+        // float angle = Mathf.SmoothDampAngle(transform.eulerAngles.x, xRotTarget, ref xCurrRot, 0.5f);
+        // transform.rotation = Quaternion.Euler(angle, 0, 0);
     }
 
     public void Jump() {
@@ -75,5 +76,9 @@ public class RunnerController : MonoBehaviour
     void OnCollisionEnter(Collision collision)
     {
         isJumping = false;
+        if (collision.gameObject.tag == "Laser") {
+            gameObject.SetActive(false);
+            GameManager.instance.Die();
+        }
     }
 }
