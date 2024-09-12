@@ -65,6 +65,7 @@ public class RunnerController : MonoBehaviour
         if (isJumping) return;
         isJumping = true;
         m_Rigidbody.AddForce(-downVector * jumpForce);
+        SoundManager.instance.PlayJumpClip();
     }
 
     public void ChangeGravity(int gravityDir) {
