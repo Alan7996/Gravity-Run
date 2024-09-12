@@ -35,6 +35,7 @@ public class LaserSpawnManager : MonoBehaviour
     public GameObject[] lasers;
 
     private int numSpawns = 0;
+    private int numSpawnedLasers = 2;
 
     private void Awake()
     {
@@ -59,11 +60,13 @@ public class LaserSpawnManager : MonoBehaviour
 
     public void Spawn() {
         numSpawns++;
-        int numLessSpawn = 4 < numSpawns / 10 ? 4 : numSpawns / 10;
-
+        
+        if (numSpawns / 5 - numSpawnedLasers == -1) numSpawnedLasers++;
+        numSpawnedLasers = Math.Min(numSpawnedLasers, 6);
+        
         // can and should simplify to just one loop
         // choose at least two safe spots
-        int numSafeSpots = UnityEngine.Random.Range(2, 6 - numLessSpawn);
+        int numSafeSpots = UnityEngine.Random.Range(2, 6);
         List<int> safeSpots = new List<int>();
         while (safeSpots.Count < numSafeSpots) {
             // consider 5~8 as 6~9
@@ -77,26 +80,25 @@ public class LaserSpawnManager : MonoBehaviour
             safeSpots.Add(nextInd);
         }
 
-        List<int> spawnSpots = new List<int>();
-        for (int i = 1; i < 9; i++) {
-            if (safeSpots.IndexOf(i) == -1) {
-                if (i > 4)
-                    spawnSpots.Add(i + 1);
-                else   
-                    spawnSpots.Add(i);
-            }
-        }
-
         Transform tempTransform;
         // choose all lasers that connect spawn points for now
         GameObject newParent = Instantiate(laserParent);
         GameObject newObject;
-        for (int i = 0; i < 20; i++) {
-            if (spawnSpots.IndexOf(laserConnections[i] % 10) > -1 && spawnSpots.IndexOf(laserConnections[i] / 10) > -1) {
-                tempTransform = lasers[i].GetComponent<Transform>();
-                newObject = Instantiate(lasers[i], new Vector3(200f, tempTransform.position.y, tempTransform.position.z), tempTransform.rotation);
-                newObject.transform.parent = newParent.transform;
+
+        List<int> laserObjectIndices = new List<int>();
+        while (true) {
+            int i = UnityEngine.Random.Range(0, 20);
+            if (safeSpots.IndexOf(laserConnections[i] % 10) > -1 && safeSpots.IndexOf(laserConnections[i] / 10) > -1) {
+                continue;
             }
+            laserObjectIndices.Add(i);
+            if (laserObjectIndices.Count >= numSpawnedLasers) break;
+        }
+
+        for (int i = 0; i < laserObjectIndices.Count; i++) {
+            tempTransform = lasers[laserObjectIndices[i]].GetComponent<Transform>();
+            newObject = Instantiate(lasers[laserObjectIndices[i]], new Vector3(200f, tempTransform.position.y, tempTransform.position.z), tempTransform.rotation);
+            newObject.transform.parent = newParent.transform;
         }
         
         // List<int> laserObjectIndices = new List<int>();
