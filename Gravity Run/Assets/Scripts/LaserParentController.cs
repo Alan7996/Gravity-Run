@@ -14,8 +14,6 @@ public class LaserParentController : MonoBehaviour
     void Update()
     {
         if (GameManager.instance.isGameOver) return;
-        
-        transform.Rotate(Time.deltaTime * 5.0f, 0, 0);
 
         if (transform.position.x < -5.0f)
             Destroy(gameObject);

@@ -74,23 +74,28 @@ public class GameManager : MonoBehaviour
             textScore.text = totalTimer.ToString("0.0");
 
         if (Input.GetKeyDown(KeyCode.Keypad1)) {
-            runner.ChangeGravity(1);
+            ChangeGravity(1);
         } else if (Input.GetKeyDown(KeyCode.Keypad4)) {
-            runner.ChangeGravity(4);
+            ChangeGravity(4);
         } else if (Input.GetKeyDown(KeyCode.Keypad7)) {
-            runner.ChangeGravity(7);
+            ChangeGravity(7);
         } else if (Input.GetKeyDown(KeyCode.Keypad8)) {
-            runner.ChangeGravity(8);
+            ChangeGravity(8);
         } else if (Input.GetKeyDown(KeyCode.Keypad9)) {
-            runner.ChangeGravity(9);
+            ChangeGravity(9);
         } else if (Input.GetKeyDown(KeyCode.Keypad6)) {
-            runner.ChangeGravity(6);
+            ChangeGravity(6);
         } else if (Input.GetKeyDown(KeyCode.Keypad3)) {
-            runner.ChangeGravity(3);
+            ChangeGravity(3);
         } else if (Input.GetKeyDown(KeyCode.Keypad2)) {
-            runner.ChangeGravity(2);
+            ChangeGravity(2);
         } else if (Input.GetKeyDown(KeyCode.Keypad5))
             runner.Jump();
+    }
+
+    void ChangeGravity(int gravityDir) {
+        runner.ChangeGravity(gravityDir);
+        cam.ChangeGravity(gravityDir);
     }
 
     public void Die() {

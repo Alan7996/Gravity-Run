@@ -27,8 +27,5 @@ public class OctaCylinderContainerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (GameManager.instance.isGameOver) return;
-        
-        transform.Rotate(Time.deltaTime * 5.0f, 0, 0);
     }
 }

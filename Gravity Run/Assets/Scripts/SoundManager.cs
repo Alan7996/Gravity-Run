@@ -18,14 +18,14 @@ public class SoundManager : MonoBehaviour
 
     private static SoundManager s_instance;
 
-    private AudioSource audio;
+    private AudioSource audioSource;
     
     public AudioClip jumpClip;
 
     // Start is called before the first frame update
     void Start()
     {
-        audio = GetComponent<AudioSource>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -35,6 +35,6 @@ public class SoundManager : MonoBehaviour
     }
 
     public void PlayJumpClip() {
-        audio.PlayOneShot(jumpClip);
+        audioSource.PlayOneShot(jumpClip);
     }
 }

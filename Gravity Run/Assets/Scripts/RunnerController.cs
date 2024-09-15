@@ -13,7 +13,6 @@ public class RunnerController : MonoBehaviour
     private float[] rotTargets;
 
     private Vector3 downVector;
-    private Vector3[] gravities;
 
     private bool isJumping = false;
     
@@ -29,28 +28,13 @@ public class RunnerController : MonoBehaviour
                              -90f, // left
                              0f, // placeholder
                              90f, // right
-                             45f, // should be -135f, but bugged
-                             0f, // should be -180f, // up, but bugged
-                             -45f, // should be 135f, but bugged
+                             -135f,
+                             -180f, // up
+                             135f,
                             };
 
-        gravities = new [] { new Vector3(0, 0, 0), // placeholder
-                             new Vector3(0, -1, 1),
-                             new Vector3(0, -1, 0), // down
-                             new Vector3(0, -1, -1),
-                             new Vector3(0, 0, 1), // left
-                             new Vector3(0.0f, 0.0f, 0.0f), // placeholder
-                             new Vector3(0, 0, -1), // right
-                             new Vector3(0, 1, 1),
-                             new Vector3(0, 1, 0), // up
-                             new Vector3(0, 1, -1)
-                            };
-
-        for (int i = 0; i < gravities.Length; i++) {
-            gravities[i] = gravities[i].normalized * 9.81f;
-        }
-        downVector = gravities[2];
-        Physics.gravity = downVector;
+        Physics.gravity = 9.81f * (transform.rotation * Vector3.down);
+        downVector = Physics.gravity;
     }
 
     // Update is called once per frame
@@ -69,8 +53,9 @@ public class RunnerController : MonoBehaviour
     }
 
     public void ChangeGravity(int gravityDir) {
-        xRotTarget = rotTargets[gravityDir];
-        downVector = gravities[gravityDir];
+        xRotTarget += rotTargets[gravityDir];
+        transform.rotation = Quaternion.Euler(xRotTarget, 0, 0);
+        downVector = 9.81f * (transform.rotation * Vector3.down);
         Physics.gravity = downVector;
     }
     
