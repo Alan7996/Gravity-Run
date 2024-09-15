@@ -100,17 +100,13 @@ public class LaserSpawnManager : MonoBehaviour
             newObject = Instantiate(lasers[laserObjectIndices[i]], new Vector3(200f, tempTransform.position.y, tempTransform.position.z), tempTransform.rotation);
             newObject.transform.parent = newParent.transform;
         }
-        
-        // List<int> laserObjectIndices = new List<int>();
-        // spawn on the farther cylinder
-        // if (octaCylinder1Transform.position.x <= octaCylinder2Transform.position.x) {
-        //     for (int i = 0; i < laserObjectIndices.Count; i++) {
-        //         octaCylinder2.childLasers.Add(lasers[i]);
-        //     }
-        // } else {
-        //     for (int i = 0; i < laserObjectIndices.Count; i++) {
-        //         octaCylinder1.childLasers.Add(lasers[i]);
-        //     }
-        // }
+    }
+
+    public void IncNumSpawn() {
+        numSpawns++;
+    }
+
+    public void DecNumSpawn() {
+        numSpawns--;
     }
 }
