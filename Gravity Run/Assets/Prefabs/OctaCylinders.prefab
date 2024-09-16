@@ -62,7 +62,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: c36fb0d6e289ea440ab1e91cba36128a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -205,6 +205,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 22.5
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 3f0dc532b35a2b34d9036b935ff5fc01, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 689a3b20419e1344b918bbdfce084796, type: 2}
     - target: {fileID: 919132149155446097, guid: 3f0dc532b35a2b34d9036b935ff5fc01, type: 3}
       propertyPath: m_Name
       value: OctaCylinder2
@@ -292,6 +296,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 22.5
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 3f0dc532b35a2b34d9036b935ff5fc01, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 689a3b20419e1344b918bbdfce084796, type: 2}
     - target: {fileID: 919132149155446097, guid: 3f0dc532b35a2b34d9036b935ff5fc01, type: 3}
       propertyPath: m_Name
       value: OctaCylinder1

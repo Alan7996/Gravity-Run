@@ -24,7 +24,6 @@ public class GameManager : MonoBehaviour
 
     public CameraController cam;
     public LaserSpawnManager laserSpawner;
-    public LaserParentController laserParent;
     public RunnerController runner;
 
     public TextMeshProUGUI textScore;
@@ -144,6 +143,8 @@ public class GameManager : MonoBehaviour
             newHighscore.SetActive(false);
         }
         gameOverCanvas.SetActive(true);
+
+        SoundManager.instance.PlayDead();
     }
 
     public void GameStart() {

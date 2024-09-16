@@ -22,6 +22,6 @@ public class OctaCylinderScroller : MonoBehaviour
     }
 
     void FixedUpdate() {
-        transform.Translate(new Vector3(-1 * Time.deltaTime * 10.0f, 0.0f, 0.0f), Space.World);
+        transform.Translate(new Vector3(-GameManager.instance.laserSpeed * Time.deltaTime * 10.0f, 0.0f, 0.0f), Space.World);
     }
 }
