@@ -6,12 +6,6 @@ public class OctaCylinderScroller : MonoBehaviour
 {
     public List<GameObject> childLasers;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
     // Update is called once per frame
     void Update()
     {
@@ -22,6 +16,8 @@ public class OctaCylinderScroller : MonoBehaviour
     }
 
     void FixedUpdate() {
+        if (GameManager.instance.isGamePaused) return;
+
         transform.Translate(new Vector3(-GameManager.instance.laserSpeed * Time.deltaTime * 10.0f, 0.0f, 0.0f), Space.World);
     }
 }

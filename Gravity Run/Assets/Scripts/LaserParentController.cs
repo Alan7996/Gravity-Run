@@ -24,7 +24,7 @@ public class LaserParentController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (GameManager.instance.isGameOver) return;
+        if (GameManager.instance.isGameOver || GameManager.instance.isGamePaused) return;
 
         if (transform.position.x < 55f && transform.position.x > -5f)
             audioSource.volume = Math.Min(0.4f, 0.4f * (1f - (transform.position.x + 5f) / 60f));
@@ -36,7 +36,7 @@ public class LaserParentController : MonoBehaviour
     }
 
     void FixedUpdate() {
-        if (GameManager.instance.isGameOver) return;
+        if (GameManager.instance.isGameOver || GameManager.instance.isGamePaused) return;
 
         transform.Translate(new Vector3(-GameManager.instance.laserSpeed * Time.deltaTime * 10.0f, 0.0f, 0.0f), Space.World);
     }

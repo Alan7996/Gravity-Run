@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Analytics;
 
 public class SoundManager : MonoBehaviour
 {
@@ -25,6 +24,8 @@ public class SoundManager : MonoBehaviour
     public AudioClip jumpClip;
     public AudioClip deathClip;
 
+    private float volume;
+
     private bool fadeToStop = false;
 
     // Start is called before the first frame update
@@ -34,6 +35,14 @@ public class SoundManager : MonoBehaviour
         audioSource.clip = bgm;
         audioSource.loop = true;
         audioSource.Play();
+
+        if (PlayerPrefs.HasKey("Volume")) {
+            volume = PlayerPrefs.GetFloat("Volume");
+        } else {
+            volume = 1.0f;
+            PlayerPrefs.SetFloat("Volume", volume);
+        }
+        AudioListener.volume = volume;
     }
 
     // Update is called once per frame
@@ -54,6 +63,14 @@ public class SoundManager : MonoBehaviour
         }
     }
 
+    public void PauseMusic(bool pausing) {
+        if (pausing) {
+            audioSource.Pause();
+        } else {
+            audioSource.UnPause();
+        }
+    }
+
     public void PlayJumpClip() {
         audioSource.PlayOneShot(jumpClip);
     }
@@ -61,5 +78,11 @@ public class SoundManager : MonoBehaviour
     public void PlayDead() {
         audioSource.PlayOneShot(deathClip);
         fadeToStop = true;
+    }
+
+    public void UpdateVolume(float volume_) {
+        volume = volume_;
+        PlayerPrefs.SetFloat("Volume", volume_);
+        AudioListener.volume = volume;
     }
 }

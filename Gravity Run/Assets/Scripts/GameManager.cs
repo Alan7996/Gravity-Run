@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using System;
 
 public class GameManager : MonoBehaviour
 {
@@ -54,6 +55,7 @@ public class GameManager : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().buildIndex == 0) {
             isGameOver = true;
+            isGamePaused = true;
         }
         if (gameOverCanvas)
             gameOverCanvas.SetActive(false);
@@ -65,6 +67,12 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         if (isGameOver) return;
+
+        if (Input.GetKeyDown(KeyCode.Escape)) {
+            GamePause();
+        }
+
+        if (isGamePaused) return;
         
         totalTimer += Time.deltaTime;
         spawnTimer += Time.deltaTime;
@@ -145,6 +153,24 @@ public class GameManager : MonoBehaviour
         gameOverCanvas.SetActive(true);
 
         SoundManager.instance.PlayDead();
+    }
+
+    public void GamePause() {
+        if (isGamePaused) {
+            // unpause
+            if (SceneManager.GetActiveScene().buildIndex > 0)
+                SoundManager.instance.PauseMusic(false);
+            RunnerController.instance.PauseRunner(false);
+        } else{
+            // pause
+            if (SceneManager.GetActiveScene().buildIndex > 0)
+                SoundManager.instance.PauseMusic(true);
+            RunnerController.instance.PauseRunner(true);
+        }
+
+        OptionManager.instance.OpenCloseOptions();
+
+        isGamePaused = !isGamePaused;
     }
 
     public void GameStart() {

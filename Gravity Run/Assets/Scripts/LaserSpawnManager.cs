@@ -52,12 +52,6 @@ public class LaserSpawnManager : MonoBehaviour
                                     37, 38, 39, 46, 48, 49, 67, 68, 79 };
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void Spawn() {
         numSpawns++;
         

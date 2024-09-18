@@ -4,15 +4,31 @@ using UnityEngine;
 
 public class RunnerController : MonoBehaviour
 {
+    public static RunnerController instance
+    {
+        get
+        {
+            if (m_instance == null)
+            {
+                m_instance = FindObjectOfType<RunnerController>();
+            }
+            return m_instance;
+        }
+    }
+
+    private static RunnerController m_instance;
+
     private Rigidbody m_Rigidbody;
 
     public float jumpForce = 60.0f;
 
-    private float xCurrRot;
     private float xRotTarget = 0.0f;
     private float[] rotTargets;
 
     private Vector3 downVector;
+
+    private Vector3 tempGravity;
+    private Vector3 tempVelocity;
 
     private bool isJumping = false;
     
@@ -37,12 +53,17 @@ public class RunnerController : MonoBehaviour
         downVector = Physics.gravity;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        // don't need for now since we are using a sphere
-        // float angle = Mathf.SmoothDampAngle(transform.eulerAngles.x, xRotTarget, ref xCurrRot, 0.5f);
-        // transform.rotation = Quaternion.Euler(angle, 0, 0);
+    public void PauseRunner(bool pausing) {
+        if (pausing) {
+            tempGravity = Physics.gravity;
+            Physics.gravity = Vector3.zero;
+
+            tempVelocity = m_Rigidbody.velocity;
+            m_Rigidbody.velocity = Vector3.zero;
+        } else {
+            Physics.gravity = tempGravity;
+            m_Rigidbody.velocity = tempVelocity;
+        }
     }
 
     public void Jump() {

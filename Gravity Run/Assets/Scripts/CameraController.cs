@@ -31,6 +31,8 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (GameManager.instance.isGamePaused) return;
+
         float angle = Mathf.SmoothDampAngle(transform.eulerAngles.z, zRotTarget, ref zCurrRot, 0.5f);
         transform.rotation = Quaternion.Euler(0, 90, angle);
     }
