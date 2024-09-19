@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
 
     private static GameManager m_instance;
 
-    public const bool PLAYTEST = true;
+    private const bool PLAYTEST = false;
 
     public CameraController cam;
     public LaserSpawnManager laserSpawner;
